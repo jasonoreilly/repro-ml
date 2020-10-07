@@ -1,0 +1,30 @@
+stages:
+  dataset_creator:
+    cmd: python3 studentpredictor/create_dataset.py
+    deps:
+    - studentpredictor/create_dataset.py
+    outs:
+    - assets/data
+  feature_creator:
+    cmd: python3 studentpredictor/create_features.py
+    deps:
+    - assets/data
+    - studentpredictor/create_features.py
+    outs:
+    - assets/features
+  model_trainer:
+    cmd: python3 studentpredictor/train_model.py
+    deps:
+    - assets/features
+    - studentpredictor/train_model.py
+    outs:
+    - assets/models
+  evaluator:
+    cmd: python3 studentpredictor/evaluate_model.py
+    deps:
+    - assets/features
+    - assets/models
+    - studentpredictor/evaluate_model.py
+    metrics:
+    - assets/metrics.json:
+        cache: false

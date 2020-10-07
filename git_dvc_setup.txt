@@ -44,16 +44,17 @@ run pipenv install --dev to install packages
 # DVC pipeline
 
 make pipeline reproducible
-	dvc run -d student_predictor/create_dataset.py \
+	dvc run -d studentpredictor/create_dataset.py \
 	    -o assets/data \
 	    -n dataset_creator \
 	    --verbose \
-	    python student_predictor/create_dataset.py
+	    python3 studentpredictor/create_dataset.py
 
 explanation of parameters
-	-f assets/data.dvc 						saves the metafile used by DVC to reproduce this step
 	-d studentpredictor/create_dataset.py 	adds this script as a dependency for this step
 	-o assets/data 							tells that the outputs will be stored in that directory
+	-n dataset_creator						naming
+	--verbose								run script as python3 (important difference from python!)
 
 
 

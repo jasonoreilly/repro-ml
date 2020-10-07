@@ -1,0 +1,40 @@
+dataset_creator:
+  cmd: python3 studentpredictor/create_dataset.py
+  deps:
+  - path: studentpredictor/create_dataset.py
+    md5: b986e9f02021056546527eb77dd3c2fa
+  outs:
+  - path: assets/data
+    md5: 6ca07cc8d187d6108094e0c34628f3b7.dir
+feature_creator:
+  cmd: python3 studentpredictor/create_features.py
+  deps:
+  - path: assets/data
+    md5: 6ca07cc8d187d6108094e0c34628f3b7.dir
+  - path: studentpredictor/create_features.py
+    md5: 2c8e746516a463ad2a0e1901b1ba6886
+  outs:
+  - path: assets/features
+    md5: d7717cb125db7402b1ef9fbb89d8436c.dir
+model_trainer:
+  cmd: python3 studentpredictor/train_model.py
+  deps:
+  - path: assets/features
+    md5: d7717cb125db7402b1ef9fbb89d8436c.dir
+  - path: studentpredictor/train_model.py
+    md5: 6e628557908e78187a7f944f2ca4f19d
+  outs:
+  - path: assets/models
+    md5: 1b2f8eaadbeeb60eb3ce951482fcfa0a.dir
+evaluator:
+  cmd: python3 studentpredictor/evaluate_model.py
+  deps:
+  - path: assets/features
+    md5: d7717cb125db7402b1ef9fbb89d8436c.dir
+  - path: assets/models
+    md5: 1b2f8eaadbeeb60eb3ce951482fcfa0a.dir
+  - path: studentpredictor/evaluate_model.py
+    md5: 182cf85ed303ea1ca906a7dfeb3b24ec
+  outs:
+  - path: assets/metrics.json
+    md5: dba4756abe8cab5fa5155299705174fc
