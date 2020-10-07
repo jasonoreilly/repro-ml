@@ -57,10 +57,34 @@ explanation of parameters
 	--verbose								run script as python3 (important difference from python!)
 
 
+dvc run -d studentpredictor/create_features.py \
+    -d assets/data \
+    -o assets/features \
+    -n feature_creator \
+	--verbose \
+	    python3 studentpredictor/create_features.py
 
 
-dvc run -f assets/data.dvc \
-    -d student_predictor/create_dataset.py \
-    -o assets/data \
-    python student_predictor/create_dataset.py
+dvc run -d studentpredictor/train_model.py \
+    -d assets/features \
+    -o assets/models \
+    -n model_trainer \
+    --verbose \
+    	python3 studentpredictor/train_model.py
+
+
+dvc run -d studentpredictor/evaluate_model.py \
+    -d assets/features \
+    -d assets/models \
+    -M assets/metrics.json \
+    -n evaluator \
+    --verbose \
+    	python3 studentpredictor/evaluate_model.py
+
+
+add tag to experiment
+	git tag -a "lr-experiment" -m "Experiment with Linear Regression"
+
+inspect metrics via dvc
+	dvc metrics show -T
 
