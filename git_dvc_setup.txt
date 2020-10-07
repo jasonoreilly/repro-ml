@@ -1,0 +1,65 @@
+# Git Init
+
+move into folder with cd
+
+initialize git
+	git init
+
+add all files
+	git add .
+
+check which files are to be added
+	git status
+
+commit with message
+	git commit -m "<Message>"
+
+set up where to push (initialize repo with https)
+	git remote add origin https://github.com/jasonoreilly/repro-ml.git
+
+psuh changes to remote repo
+	git push -u origin master
+
+
+# DVC Init
+
+initialize dvc
+	dvc init
+
+add remote data repository
+	dvc remote add -d localremote /tmp/dvc-storage
+
+disable analytics tracking
+	dvc config core.analytics false
+
+commit changes to git (see above)
+
+
+# Pipenv Init
+create Pipfile with [[source]] [dev-packages] [packages] [requires]
+
+run pipenv install --dev to install packages
+
+
+# DVC pipeline
+
+make pipeline reproducible
+	dvc run -d student_predictor/create_dataset.py \
+	    -o assets/data \
+	    -n dataset_creator \
+	    --verbose \
+	    python student_predictor/create_dataset.py
+
+explanation of parameters
+	-f assets/data.dvc 						saves the metafile used by DVC to reproduce this step
+	-d studentpredictor/create_dataset.py 	adds this script as a dependency for this step
+	-o assets/data 							tells that the outputs will be stored in that directory
+
+
+
+
+dvc run -f assets/data.dvc \
+    -d student_predictor/create_dataset.py \
+    -o assets/data \
+    python student_predictor/create_dataset.py
+
