@@ -1,10 +1,14 @@
+import sys
+
+sys.path.extend(['/Users/joreilly/repo/repro-ml'])
+
 import gdown
 import numpy as np
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
 
-from config import Config
+from studentpredictor.config import Config
 
 # Set random seed according to config file
 np.random.seed(Config.RANDOM_SEED)
@@ -15,8 +19,8 @@ Config.DATASET_PATH.mkdir(parents=True, exist_ok=True)
 
 # Download data from Google Drive
 gdown.download(
-    "https://drive.google.com/uc?id=1gkYBOIMm8pAGunRoI3OzQHQrgOdaRjfC",         # specify download link
-    str(Config.ORIGINAL_DATASET_FILEPATH),                                      # specify where to download to
+    "https://drive.google.com/uc?id=1gkYBOIMm8pAGunRoI3OzQHQrgOdaRjfC",  # specify download link
+    str(Config.ORIGINAL_DATASET_FILEPATH),  # specify where to download to
 )
 
 # Read in downloaded file as pandas df
@@ -30,5 +34,3 @@ df_train, df_test = train_test_split(
 # Save files as train and test to path as specified in config file
 df_train.to_csv(str(Config.DATASET_PATH / "train.csv"), index=None)
 df_test.to_csv(str(Config.DATASET_PATH / "test.csv"), index=None)
-
-
