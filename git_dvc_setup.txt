@@ -88,3 +88,13 @@ add tag to experiment
 inspect metrics via dvc
 	dvc metrics show -T
 
+reproduce dvc pipeline (now with updated train_model.py -> Random Forest)
+	dvc repro evaluator (refers to -n param)
+
+
+add, commit and push changes to git. add Random Forest Tag
+
+
+compare both metrics
+	dvc metrics show -T
+
